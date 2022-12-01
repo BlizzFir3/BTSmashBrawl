@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Drawing;
 
-namespace BTSmashBrawl
+namespace BtsSmashBrawl
 {
     public class Game1 : Game
     {
@@ -55,4 +57,36 @@ namespace BTSmashBrawl
             base.Draw(gameTime);
         }
     }
+}
+
+public struct Scene
+{
+    public Texturedata[] texture;
+    public ContentManager contentmanager;
+    public SpriteBatch spritebatch;
+    public bool isLoad;
+
+
+    public void LoadTextureList(ContentManager contentmanager_, SpriteBatch spritebatch_, string[] textureListe)
+    {
+        contentmanager = contentmanager_;
+        spritebatch = spritebatch_;
+        texture = new Texturedata[textureListe.Length];
+        for (int i = 0; i < textureListe.Length; i++)
+        {
+            texture[i].texture = contentmanager.Load<Texture2D>(textureListe[i]);
+            texture[i].position = new Vector2(0, 0);
+            texture[i].size = new Vector2(texture[i].texture.Width, texture[i].texture.Height);
+
+        }
+        isLoad = true;
+    }
+
+}
+
+public struct Texturedata
+{
+    public Texture2D texture;
+    public Vector2 size;
+    public Vector2 position;
 }
